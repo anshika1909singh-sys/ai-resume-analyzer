@@ -77,6 +77,33 @@ form {
   .main-section {
     @apply flex flex-col items-center gap-8 pt-12 max-sm:mx-2 mx-15 pb-5;
   }
+
+  /* Auth split layout */
+  .auth-root {
+    @apply min-h-screen flex;
+  }
+
+  .auth-left {
+    background: linear-gradient(180deg,#081029 0%, #0e1a36 100%);
+    color: white;
+    @apply w-1/2 p-16 flex flex-col justify-center gap-6 bg-[url('/public/images/left-decor.svg')] bg-no-repeat bg-left-bottom;
+  }
+
+  .auth-right {
+    @apply w-1/2 flex items-center justify-center p-12 bg-white;
+  }
+
+  .auth-card {
+    @apply w-full max-w-md bg-white rounded-2xl p-8 shadow-lg;
+  }
+
+  .auth-hero-title {
+    @apply text-5xl font-extrabold leading-tight;
+  }
+
+  .auth-hero-sub {
+    @apply text-lg text-gray-300 max-w-lg;
+  }
   .page-heading {
     @apply flex flex-col items-center gap-8 max-w-4xl text-center max-sm:gap-4;
   }
@@ -85,7 +112,7 @@ form {
   }
 
   .resume-card {
-    @apply flex flex-col gap-8 h-[560px] w-[350px] lg:w-[430px] xl:w-[490px] bg-white rounded-2xl p-4;
+    @apply max-w-full bg-white rounded-3xl p-6 shadow-xl transition hover:-translate-y-1 hover:shadow-2xl;
   }
 
   .resume-card-header {
