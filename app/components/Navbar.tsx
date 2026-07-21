@@ -1,13 +1,27 @@
 import { Link } from "react-router";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
+  const [isAuth, setIsAuth] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsAuth(localStorage.getItem("auth") === "true");
+    check();
+
+    window.addEventListener("authChange", check);
+    window.addEventListener("storage", check);
+
+    return () => {
+      window.removeEventListener("authChange", check);
+      window.removeEventListener("storage", check);
+    };
+  }, []);
+
   return (
     <nav className="w-full rounded-3xl bg-white shadow-sm">
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-6 py-4 lg:px-8">
         <Link to="/home">
-          <p className="text-2xl font-bold">
-            AI-RESUME ANALYZER
-          </p>
+          <p className="text-2xl font-bold">AI-RESUME ANALYZER</p>
         </Link>
 
         <div className="flex flex-wrap items-center gap-3">
@@ -15,8 +29,18 @@ const Navbar = () => {
             Upload File
           </Link>
           <Link to="/history" className="text-sm text-gray-700 px-3 py-2 hover:text-blue-600">History</Link>
-          <Link to="/" className="text-sm text-gray-700 px-3 py-2 hover:text-blue-600">Login</Link>
-          <Link to="/signup" className="text-sm text-gray-700 px-3 py-2 hover:text-blue-600">Signup</Link>
+
+          {!isAuth && (
+            <>
+              <Link to="/" className="text-sm text-gray-700 px-3 py-2 hover:text-blue-600">Login</Link>
+              <Link to="/signup" className="text-sm text-gray-700 px-3 py-2 hover:text-blue-600">Signup</Link>
+            </>
+          )}
+
+          {isAuth && (
+            <Link to="/logout" className="text-sm text-gray-700 px-3 py-2 hover:text-blue-600">Logout</Link>
+          )}
+
           <Link to="/analyze" className="text-sm text-gray-700 px-3 py-2 hover:text-blue-600">Analyze</Link>
         </div>
       </div>

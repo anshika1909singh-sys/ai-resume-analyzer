@@ -18,6 +18,13 @@ export default function Signup() {
     }
 
     // Backend signup logic will be added later
+    try {
+      localStorage.setItem("auth", "true");
+      window.dispatchEvent(new Event("authChange"));
+    } catch (err) {
+      // ignore storage errors
+    }
+
     navigate("/home");
   };
 

@@ -11,6 +11,14 @@ export default function Login() {
     e.preventDefault();
 
     // Backend authentication will be added later
+    // mark authenticated locally and notify navbar
+    try {
+      localStorage.setItem("auth", "true");
+      window.dispatchEvent(new Event("authChange"));
+    } catch (err) {
+      // ignore storage errors
+    }
+
     navigate("/home");
   };
 
