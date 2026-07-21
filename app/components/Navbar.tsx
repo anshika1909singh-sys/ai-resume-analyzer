@@ -1,8 +1,10 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const [isAuth, setIsAuth] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   useEffect(() => {
     const check = () => setIsAuth(localStorage.getItem("auth") === "true");
@@ -38,7 +40,45 @@ const Navbar = () => {
           )}
 
           {isAuth && (
-            <Link to="/logout" className="text-sm text-gray-700 px-3 py-2 hover:text-blue-600">Logout</Link>
+            <>
+              <button
+                type="button"
+                onClick={() => setShowConfirm(true)}
+                className="text-sm text-gray-700 px-3 py-2 hover:text-blue-600"
+              >
+                Logout
+              </button>
+
+              {showConfirm && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center">
+                  <div className="absolute inset-0 bg-black/50" onClick={() => setShowConfirm(false)} />
+
+                  <div className="relative w-full max-w-md rounded-xl bg-white p-6 shadow-lg">
+                    <h3 className="text-lg font-semibold">Confirm Sign Out</h3>
+                    <p className="mt-2 text-sm text-gray-600">Are you sure you want to log out? You will be returned to the login page.</p>
+
+                    <div className="mt-6 flex justify-end gap-3">
+                      <button
+                        onClick={() => setShowConfirm(false)}
+                        className="rounded-md px-4 py-2 bg-gray-100 hover:bg-gray-200"
+                      >
+                        Cancel
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          setShowConfirm(false);
+                          navigate("/logout");
+                        }}
+                        className="rounded-md px-4 py-2 bg-red-600 text-white hover:bg-red-700"
+                      >
+                        Yes, sign out
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </>
           )}
 
           <Link to="/analyze" className="text-sm text-gray-700 px-3 py-2 hover:text-blue-600">Analyze</Link>

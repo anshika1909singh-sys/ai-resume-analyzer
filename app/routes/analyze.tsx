@@ -124,7 +124,7 @@ export default function Analyze() {
                     <h2 className="text-2xl font-semibold text-slate-900">Weak points</h2>
                     <ul className="mt-4 space-y-3 text-slate-700">
                       {result.weakPoints.map((point, idx) => (
-                        <li key={idx} className="rounded-3xl bg-white p-4 shadow-sm text-red-600">{point}</li>
+                        <li key={idx} className="rounded-3xl bg-white p-4 shadow-sm text-black-600">{point}</li>
                       ))}
                     </ul>
                   </div>
