@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const signup = async (req, res) => {
   try {
@@ -52,16 +53,29 @@ const login = async (req, res) => {
   });
 }
 
-
+    console.log("Entered Password:", password);
+console.log("Stored Password:", user.password);
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(401).json({
         message: "Invalid credentials",
       });
     }
-    
+    console.log("Entered Password:", password);
+console.log("Stored Password:", user.password);
+    // Generate JWT Token
+const token = jwt.sign(
+  {
+    id: user._id, //payload
+  },
+  process.env.JWT_SECRET, //secret key
+  {
+    expiresIn: "7d",//token expiration time
+  }
+);
     return res.status(200).json({
   message: "Login successful",
+  token,
   user: {
     id: user._id,
     name: user.name,
