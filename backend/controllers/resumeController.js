@@ -1,8 +1,24 @@
-exports.uploadResume = async (req, res) => { //this is express controller function which receive the uploaded file and save it in MongoDb, call Gemini AI, return analysis
-    console.log(req.file); //req file contains information about the uploaded file, including its path, original name, and size
+const Resume = require("../models/Resume");
 
-    res.json({
-        message: "Resume uploaded successfully",
-        file: req.file
-    }); //all this send file details to thunder client to inspect
+exports.uploadResume = async (req, res) => {
+    try {
+        const resume = await Resume.create({
+            user: req.user.id,
+            originalName: req.file.originalname,
+            filePath: req.file.path,
+            analysis: ""
+        });
+
+        res.status(201).json({
+            message: "Resume uploaded successfully",
+            resume
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            message: "Server Error"
+        });
+    }
 };
