@@ -1,4 +1,6 @@
-const Resume = require("../models/Resume");
+const fs = require("fs");//for reading files
+const pdfParse = require("pdf-parse");//for extracting text from pdf
+const Resume = require("../models/Resume");//imorting resume model
 
 exports.uploadResume = async (req, res) => {
     try {
@@ -8,7 +10,10 @@ exports.uploadResume = async (req, res) => {
             filePath: req.file.path,
             analysis: ""
         });
-
+//const dataBuffer = fs.readFileSync(req.file.path);
+// const data = await pdfParse(dataBuffer);
+//console.log(pdfParse);
+//console.log(data);
         res.status(201).json({
             message: "Resume uploaded successfully",
             resume
@@ -21,4 +26,4 @@ exports.uploadResume = async (req, res) => {
             message: "Server Error"
         });
     }
-};
+};//try catch for data validation and error handling
