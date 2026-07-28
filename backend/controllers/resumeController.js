@@ -1,6 +1,7 @@
 const fs = require("fs");
 const pdfParse = require("pdf-parse");
 const Resume = require("../models/Resume");
+const { analyzeResume } = require("../services/geminiService");
 
 exports.uploadResume = async (req, res) => {
     try {
@@ -15,8 +16,11 @@ exports.uploadResume = async (req, res) => {
 
         const data = await pdfParse(dataBuffer);
 
-        console.log(data.text);
+        
+        const analysis = await analyzeResume(data.text);
+        resume.analysis = analysis;
 
+        await resume.save();
         res.status(201).json({
             message: "Resume uploaded successfully",
             resume

@@ -16,9 +16,9 @@ const resumeSchema = new mongoose.Schema(
       required: true,
     },
     analysis: {
-      type: String,
-      default: "",
-    },
+      type: Object,
+      default: {}
+    }
   },
   {
     timestamps: true,
