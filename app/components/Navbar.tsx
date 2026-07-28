@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 
 const Navbar = () => {
@@ -27,15 +27,73 @@ const Navbar = () => {
         </Link>
 
         <div className="flex flex-wrap items-center gap-3">
-          <Link to="/upload" className="inline-flex rounded-full bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700">
+          <NavLink
+            to="/home"
+            className={({ isActive }) =>
+              isActive
+                ? "text-sm rounded-full bg-slate-900 px-3 py-2 text-white transition hover:bg-slate-800"
+                : "text-sm rounded-full text-slate-700 px-3 py-2 transition hover:bg-slate-100 hover:text-slate-900"
+            }
+          >
+            Dashboard
+          </NavLink>
+
+          <NavLink
+            to="/upload"
+            className={({ isActive }) =>
+              isActive
+                ? "inline-flex rounded-full bg-gradient-to-r from-indigo-600 via-blue-600 to-sky-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-sky-500/30 transition duration-200 hover:scale-[1.02] hover:shadow-sky-500/40"
+                : "inline-flex rounded-full bg-gradient-to-r from-slate-100 via-slate-200 to-slate-100 px-5 py-2.5 text-sm font-semibold text-slate-800 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-slate-100 hover:text-slate-900"
+            }
+          >
             Upload File
-          </Link>
-          <Link to="/history" className="text-sm text-gray-700 px-3 py-2 hover:text-blue-600">History</Link>
+          </NavLink>
+
+          <NavLink
+            to="/history"
+            className={({ isActive }) =>
+              isActive
+                ? "text-sm rounded-full bg-slate-900 px-3 py-2 text-white transition hover:bg-slate-800"
+                : "text-sm rounded-full text-slate-700 px-3 py-2 transition hover:bg-slate-100 hover:text-slate-900"
+            }
+          >
+            History
+          </NavLink>
+
+          <NavLink
+            to="/analyze"
+            className={({ isActive }) =>
+              isActive
+                ? "text-sm rounded-full bg-blue-600 px-3 py-2 text-white transition hover:bg-blue-700"
+                : "text-sm text-gray-700 px-3 py-2 transition hover:text-blue-600"
+            }
+          >
+            Analyze
+          </NavLink>
 
           {!isAuth && (
             <>
-              <Link to="/" className="text-sm text-gray-700 px-3 py-2 hover:text-blue-600">Login</Link>
-              <Link to="/signup" className="text-sm text-gray-700 px-3 py-2 hover:text-blue-600">Signup</Link>
+              <NavLink
+                to="/"
+                end
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-sm rounded-full bg-blue-600 px-3 py-2 text-white transition hover:bg-blue-700"
+                    : "text-sm text-gray-700 px-3 py-2 transition hover:text-blue-600"
+                }
+              >
+                Login
+              </NavLink>
+              <NavLink
+                to="/signup"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-sm rounded-full bg-blue-600 px-3 py-2 text-white transition hover:bg-blue-700"
+                    : "text-sm text-gray-700 px-3 py-2 transition hover:text-blue-600"
+                }
+              >
+                Signup
+              </NavLink>
             </>
           )}
 
@@ -80,8 +138,6 @@ const Navbar = () => {
               )}
             </>
           )}
-
-          <Link to="/analyze" className="text-sm text-gray-700 px-3 py-2 hover:text-blue-600">Analyze</Link>
         </div>
       </div>
     </nav>

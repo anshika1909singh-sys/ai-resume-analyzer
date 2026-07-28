@@ -2,10 +2,13 @@ const { GoogleGenAI } = require("@google/genai");
 const ai = new GoogleGenAI({
     apiKey: process.env.GEMINI_API_KEY
 });
-async function analyzeResume(resumeText) {
+async function analyzeResume(resumeText, jobTitle = "", jobDescription = "") {
 const prompt = `
-Analyze the following resume.
-
+Analyze the following resume for the target role: "${jobTitle}".
+${jobDescription ? `
+Job description:
+${jobDescription}
+` : ""}
 Return ONLY valid JSON.
 
 The JSON must have exactly this structure:
@@ -26,7 +29,7 @@ The JSON must have exactly this structure:
 Resume:
 
 ${resumeText}
-`;
+`; 
 
 const response = await ai.models.generateContent({
     model: "gemini-3.6-flash",

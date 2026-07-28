@@ -1,16 +1,27 @@
 import { useEffect, useState } from "react";
-import { useLocation, Link } from "react-router";
+import { useLocation, useSearchParams, Link } from "react-router";
 import Navbar from "~/components/Navbar";
 
 type AIResult = {
   overallScore: number;
-  atsScore: number;
-  contentScore: number;
-  structureScore: number;
-  skillsScore: number;
+  scores: {
+    ats: number;
+    content: number;
+    structure: number;
+    skills: number;
+  };
   strongPoints: string[];
   weakPoints: string[];
-  suggestions: string[];
+  nextSteps: string[];
+};
+
+type ResumeDetail = {
+  _id: string;
+  originalName: string;
+  jobTitle: string;
+  jobDescription: string;
+  analysis: AIResult;
+  createdAt: string;
 };
 
 export function meta() {
@@ -19,28 +30,58 @@ export function meta() {
 
 export default function Analyze() {
   const loc = useLocation();
-  const state = (loc.state || {}) as { fileName?: string; jobTitle?: string; jobDescription?: string };
+  const [searchParams] = useSearchParams();
+  const state = (loc.state || {}) as { resumeId?: string };
   const [loading, setLoading] = useState(true);
   const [result, setResult] = useState<AIResult | null>(null);
+  const [resumeData, setResumeData] = useState<ResumeDetail | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    setLoading(true);
-    const timer = setTimeout(() => {
-      setResult({
-        overallScore: 78,
-        atsScore: 82,
-        contentScore: 76,
-        structureScore: 71,
-        skillsScore: 84,
-        strongPoints: ["Clear sectioning", "Relevant skills listed", "Professional summary present"],
-        weakPoints: ["Missing measurable achievements", "Objective is vague", "No keywords for ATS"],
-        suggestions: ["Add metrics to each work bullet", "Tailor skills to the job description", "Use active verbs and quantify results"],
-      });
-      setLoading(false);
-    }, 900);
+    async function loadResult(resumeId: string) {
+      setLoading(true);
+      setError(null);
 
-    return () => clearTimeout(timer);
-  }, []);
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          setError("You need to be logged in to view analysis.");
+          setLoading(false);
+          return;
+        }
+
+        const response = await fetch(`/api/resume/${resumeId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          setError(data.message || "Unable to load analysis.");
+          setLoading(false);
+          return;
+        }
+
+        setResumeData(data.resume);
+        setResult(data.resume.analysis);
+      } catch (error) {
+        console.error(error);
+        setError("Unable to load analysis.");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    const resumeId = state.resumeId || searchParams.get("id") || "";
+    if (resumeId) {
+      loadResult(resumeId);
+    } else {
+      setError("No analysis session found. Please upload a resume first.");
+      setLoading(false);
+    }
+  }, [searchParams, state.resumeId]);
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-sky-200 via-sky-300 to-sky-500 text-slate-900">
@@ -80,17 +121,17 @@ export default function Analyze() {
                     </div>
                   </div>
                 </div>
-                <p className="mt-4 text-sm text-slate-500">Analyzed resume file: <span className="font-semibold text-slate-700">{state.fileName ?? "No file selected"}</span></p>
-                <p className="mt-2 text-sm text-slate-500">Target role: <span className="font-semibold text-slate-700">{state.jobTitle ?? "Not provided"}</span></p>
+                <p className="mt-4 text-sm text-slate-500">Analyzed resume file: <span className="font-semibold text-slate-700">{resumeData?.originalName ?? "No file selected"}</span></p>
+                <p className="mt-2 text-sm text-slate-500">Target role: <span className="font-semibold text-slate-700">{resumeData?.jobTitle ?? "Not provided"}</span></p>
               </div>
             </div>
 
             <div className="grid gap-6 lg:grid-cols-3">
               {result ? [
-                { label: "ATS Fit", value: result.atsScore, color: "bg-sky-600" },
-                { label: "Content", value: result.contentScore, color: "bg-cyan-500" },
-                { label: "Structure", value: result.structureScore, color: "bg-violet-500" },
-                { label: "Skills", value: result.skillsScore, color: "bg-indigo-500" },
+                { label: "ATS Fit", value: result.scores.ats, color: "bg-sky-600" },
+                { label: "Content", value: result.scores.content, color: "bg-cyan-500" },
+                { label: "Structure", value: result.scores.structure, color: "bg-violet-500" },
+                { label: "Skills", value: result.scores.skills, color: "bg-indigo-500" },
               ].map((item) => (
                 <div key={item.label} className="rounded-[28px] bg-slate-50 p-5 shadow-sm">
                   <p className="text-sm uppercase tracking-[0.25em] text-slate-500">{item.label}</p>
@@ -135,7 +176,7 @@ export default function Analyze() {
                     <h2 className="text-2xl font-semibold">Action plan</h2>
                     <p className="mt-3 text-slate-300">Improve these areas first to boost your resume score and ATS visibility.</p>
                     <ol className="mt-5 space-y-3 text-slate-200">
-                      {result.suggestions.map((suggestion, idx) => (
+                      {result.nextSteps.map((suggestion, idx) => (
                         <li key={idx} className="rounded-3xl bg-slate-800 p-4">{suggestion}</li>
                       ))}
                     </ol>

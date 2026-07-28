@@ -15,10 +15,18 @@ const resumeSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    jobTitle: {
+      type: String,
+      required: true,
+    },
+    jobDescription: {
+      type: String,
+      default: "",
+    },
     analysis: {
       type: Object,
-      default: {}
-    }
+      default: {},
+    },
   },
   {
     timestamps: true,

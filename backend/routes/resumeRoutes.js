@@ -3,7 +3,14 @@ const router = express.Router(); //router for all resume related APIs
 
 const authMiddleware = require("../middleware/authMiddleware"); //only logged in user can upload resume
 const upload = require("../config/multer");//multer middleware
-const { uploadResume } = require("../controllers/resumeController");//import controller that will execute after multer has processed the file
+const {
+    uploadResume,
+    getHistory,
+    getResumeById,
+    getResumeFile,
+    deleteHistoryItem,
+    deleteAllHistory,
+} = require("../controllers/resumeController");
 
 router.post(
     "/upload",
@@ -11,5 +18,11 @@ router.post(
     upload.single("resume"),
     uploadResume
 );
+
+router.get("/history", authMiddleware, getHistory);
+router.delete("/history", authMiddleware, deleteAllHistory);
+router.get("/:id/file", authMiddleware, getResumeFile);
+router.get("/:id", authMiddleware, getResumeById);
+router.delete("/:id", authMiddleware, deleteHistoryItem);
 
 module.exports = router;

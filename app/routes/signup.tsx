@@ -1,6 +1,11 @@
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router";
 
+type Status = {
+  type: "success" | "error";
+  message: string;
+};
+
 export default function Signup() {
   const navigate = useNavigate();
 
@@ -8,25 +13,54 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [status, setStatus] = useState<Status | null>(null);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
 
-    if (password !== confirmPassword) {
-      alert("Passwords do not match!");
+  if (password !== confirmPassword) {
+    setStatus({ type: "error", message: "Passwords do not match!" });
+    return;
+  }
+
+  try {
+    const response = await fetch("/api/auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        password,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      setStatus({ type: "error", message: data.message || "Signup failed." });
       return;
     }
 
-    // Backend signup logic will be added later
-    try {
+    // Store authentication data immediately after signup
+    if (data.token) {
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
       localStorage.setItem("auth", "true");
       window.dispatchEvent(new Event("authChange"));
-    } catch (err) {
-      // ignore storage errors
     }
 
-    navigate("/home");
-  };
+    setStatus({ type: "success", message: data.message || "Account created successfully." });
+
+    setTimeout(() => {
+      navigate("/home");
+    }, 400);
+  } catch (error) {
+    console.error(error);
+    setStatus({ type: "error", message: "Unable to connect to server." });
+  }
+};
 
   return (
     <div className="min-h-screen flex flex-col lg:flex-row bg-gradient-to-br from-sky-200 via-sky-300 to-sky-500">
@@ -96,6 +130,18 @@ export default function Signup() {
           <p className="text-black mt-2 mb-8">
             Sign up to start analyzing your resumes.
           </p>
+
+          {status ? (
+            <div
+              className={`rounded-3xl p-4 mb-6 text-sm border ${
+                status.type === "success"
+                  ? "bg-emerald-50 text-emerald-800 border-emerald-200"
+                  : "bg-rose-50 text-rose-800 border-rose-200"
+              }`}
+            >
+              {status.message}
+            </div>
+          ) : null}
 
           <form
             onSubmit={handleSubmit}

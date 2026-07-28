@@ -1,27 +1,58 @@
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router";
 
+type Status = {
+  type: "success" | "error";
+  message: string;
+};
+
 export default function Login() {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [status, setStatus] = useState<Status | null>(null);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
 
-    // Backend authentication will be added later
-    // mark authenticated locally and notify navbar
-    try {
-      localStorage.setItem("auth", "true");
-      window.dispatchEvent(new Event("authChange"));
-    } catch (err) {
-      // ignore storage errors
+  try {
+    const response = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      setStatus({ type: "error", message: data.message || "Login failed." });
+      return;
     }
 
-    navigate("/home");
-  };
+    // Store authentication data
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("user", JSON.stringify(data.user));
+    localStorage.setItem("auth", "true");
 
+    // Notify navbar
+    window.dispatchEvent(new Event("authChange"));
+
+    setStatus({ type: "success", message: data.message || "Login successful." });
+
+    setTimeout(() => {
+      navigate("/home");
+    }, 400);
+  } catch (error) {
+    console.error(error);
+    setStatus({ type: "error", message: "Unable to connect to server." });
+  }
+};
   return (
     <div className="min-h-screen flex flex-col lg:flex-row bg-gradient-to-br from-sky-200 via-sky-300 to-sky-500">
       {/* LEFT SECTION */}
@@ -92,6 +123,18 @@ export default function Login() {
           <p className="text-black mt-2 mb-8">
             Login to continue using AI Resume Analyzer.
           </p>
+
+          {status ? (
+            <div
+              className={`rounded-3xl p-4 mb-6 text-sm border ${
+                status.type === "success"
+                  ? "bg-emerald-50 text-emerald-800 border-emerald-200"
+                  : "bg-rose-50 text-rose-800 border-rose-200"
+              }`}
+            >
+              {status.message}
+            </div>
+          ) : null}
 
           <form
             onSubmit={handleSubmit}
