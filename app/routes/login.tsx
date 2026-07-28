@@ -116,13 +116,17 @@ export default function Login() {
             </Link>
           </div>
 
-          <h2 className="text-3xl font-bold text-black">
-            Welcome Back
-          </h2>
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <h2 className="text-3xl font-bold text-black">
+                Welcome Back
+              </h2>
 
-          <p className="text-black mt-2 mb-8">
-            Login to continue using AI Resume Analyzer.
-          </p>
+              <p className="text-black mt-2 mb-8">
+                Login to continue using AI Resume Analyzer.
+              </p>
+            </div>
+          </div>
 
           {status ? (
             <div
@@ -190,32 +194,6 @@ export default function Login() {
               Login →
             </button>
           </form>
-
-          <div className="my-8 flex items-center">
-            <div className="flex-grow border-t"></div>
-
-            <span className="px-4 text-gray-400 text-sm">
-              OR CONTINUE WITH
-            </span>
-
-            <div className="flex-grow border-t"></div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-
-            <button
-              className="border rounded-xl py-3 hover:bg-gray-100 transition font-medium bg-blue-600 text-white"
-            >
-              Google
-            </button>
-
-            <button
-              className="border rounded-xl py-3 hover:bg-gray-100 transition font-medium bg-blue-600 text-white"
-            >
-              GitHub
-            </button>
-
-          </div>
 
           <p className="text-center mt-8 text-gray-500 text-sm">
             Don't have an account?{" "}

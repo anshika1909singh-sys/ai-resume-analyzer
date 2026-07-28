@@ -20,8 +20,9 @@
 
 html,
 body {
-  @apply bg-white;
+  @apply bg-white text-slate-900;
 }
+
 
 main {
   @apply min-h-screen pt-10;
@@ -37,12 +38,20 @@ h2 {
 label {
   @apply text-dark-200;
 }
-input {
-  @apply w-full p-4 inset-shadow rounded-2xl focus:outline-none bg-white;
+input,
+textarea {
+  @apply w-full p-4 inset-shadow rounded-2xl focus:outline-none bg-white text-slate-900;
 }
 
-textarea {
-  @apply w-full p-4 inset-shadow rounded-2xl focus:outline-none bg-white;
+button:hover,
+input:hover,
+textarea:hover,
+select:hover {
+  cursor: pointer;
+}
+
+input[type="file"] {
+  cursor: pointer;
 }
 
 form {
