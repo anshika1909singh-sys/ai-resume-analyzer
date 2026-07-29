@@ -13,6 +13,12 @@ An AI-powered full-stack web application that analyzes resumes against job descr
 ![Render](https://img.shields.io/badge/Backend-Render-5C4EE5?logo=render)
 ---
 
+## 🎥 Demo Video
+
+[▶️ Watch the demo](assets/demo.gif)
+
+---
+
 ## 🌐 Live Demo
 
 🔗 (https://ai-resume-analyzer-6843hqoi2-me-c686.vercel.app/)
