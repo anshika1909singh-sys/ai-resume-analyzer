@@ -6,13 +6,13 @@ An AI-powered full-stack web application that analyzes resumes against job descr
 
 ## 🌐 Live Demo
 
-🔗 https://YOUR-VERCEL-URL.vercel.app
+🔗 [ https://YOUR-VERCEL-URL.vercel.app](https://ai-resume-analyzer-6843hqoi2-me-c686.vercel.app/)
 
 ---
 
 ## 📂 GitHub Repository
 
-🔗 https://github.com/YOUR-GITHUB-USERNAME/ai-resume-analyzer
+🔗 [https://github.com/YOUR-GITHUB-USERNAME/ai-resume-analyzer](https://github.com/anshika1909singh-sys/ai-resume-analyzer)
 
 ---
 
@@ -307,7 +307,7 @@ This project is licensed under the MIT License.
 **Anshika Singh**
 
 GitHub:
-https://github.com/YOUR-GITHUB-USERNAME
+https://github.com/anshika1909singh-sys
 
 LinkedIn:
-https://linkedin.com/in/YOUR-LINKEDIN
+https://linkedin.com/in/www.linkedin.com/in/anshika-singh-b3901b348
