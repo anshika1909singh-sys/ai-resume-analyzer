@@ -2,6 +2,15 @@
 
 An AI-powered full-stack web application that analyzes resumes against job descriptions using **Google Gemini AI**. The application provides ATS compatibility scores, content analysis, skills evaluation, and structure assessment while securely storing users' uploaded resumes and analysis history.
 
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript)
+![Node.js](https://img.shields.io/badge/Node.js-339933?logo=node.js)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?logo=mongodb)
+![Gemini AI](https://img.shields.io/badge/Google-Gemini_AI-4285F4?logo=google)
+![JWT](https://img.shields.io/badge/Auth-JWT-black)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?logo=tailwind-css)
+![Vercel](https://img.shields.io/badge/Frontend-Vercel-black?logo=vercel)
+![Render](https://img.shields.io/badge/Backend-Render-5C4EE5?logo=render)
 ---
 
 ## 🌐 Live Demo
@@ -122,6 +131,16 @@ The application allows users to:
  |   MongoDB Atlas    |           |   Google Gemini   |
  +--------------------+           +-------------------+
 ```
+
+---
+## ⭐ Key Highlights
+
+- 🤖 AI-powered resume analysis using Google Gemini
+- 📄 PDF upload and parsing
+- 🔐 Secure JWT authentication
+- 📊 ATS compatibility scoring
+- 📁 Resume history with PDF preview
+- ☁️ Deployed on Vercel and Render
 
 ---
 
