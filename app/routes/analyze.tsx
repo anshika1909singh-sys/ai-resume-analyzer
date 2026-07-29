@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useSearchParams, Link } from "react-router";
 import Navbar from "~/components/Navbar";
+import { API_URL } from "~/config";
 
 type AIResult = {
   overallScore: number;
@@ -50,7 +51,7 @@ export default function Analyze() {
           return;
         }
 
-        const response = await fetch(`/api/resume/${resumeId}`, {
+        const response = await fetch(`${API_URL}/api/resume/${resumeId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

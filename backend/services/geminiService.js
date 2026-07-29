@@ -36,7 +36,14 @@ const response = await ai.models.generateContent({
     contents: prompt
 });
 const text = response.text;
-const analysis = JSON.parse(text);
+console.log("Gemini raw response:");
+console.log(text);
+const cleaned = text
+  .replace(/```json/g, "")
+  .replace(/```/g, "")
+  .trim();
+
+const analysis = JSON.parse(cleaned);
 console.log(analysis);
 return analysis;
 }

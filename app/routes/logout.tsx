@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
+
 export default function Logout() {
   const navigate = useNavigate();
   const [seconds, setSeconds] = useState(2);

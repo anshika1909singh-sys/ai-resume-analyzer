@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router";
+import { API_URL } from "~/config";
 
 type Status = {
   type: "success" | "error";
@@ -24,7 +25,7 @@ export default function Signup() {
   }
 
   try {
-    const response = await fetch("/api/auth/signup", {
+    const response = await fetch(`${API_URL}/api/auth/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

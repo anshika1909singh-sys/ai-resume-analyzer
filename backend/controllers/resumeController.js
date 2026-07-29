@@ -20,7 +20,9 @@ exports.uploadResume = async (req, res) => {
         try {
             const dataBuffer = fs.readFileSync(req.file.path);
             const data = await pdfParse(dataBuffer);
+            console.log("Calling Gemini...");
             const analysis = await analyzeResume(data.text, jobTitle, jobDescription);
+            console.log("Gemini returned:", analysis);
             resume.analysis = analysis;
             await resume.save();
 

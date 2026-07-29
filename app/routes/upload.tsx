@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import Navbar from "~/components/Navbar";
-
+import { API_URL } from "~/config";
 export function meta() {
   return [{ title: "Upload Resume - AI Resume" }];
 }
@@ -48,7 +48,7 @@ export default function Upload() {
       formData.append("jobTitle", jobTitle);
       formData.append("jobDescription", jobDescription);
 
-      const response = await fetch("/api/resume/upload", {
+      const response = await fetch(`${API_URL}/api/resume/upload`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

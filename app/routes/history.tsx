@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import Navbar from "~/components/Navbar";
+import { API_URL } from "~/config";
 
 type AnalysisData = {
   overallScore: number;
@@ -60,7 +61,7 @@ export default function History() {
         return;
       }
 
-      const response = await fetch("/api/resume/history", {
+      const response = await fetch(`${API_URL}/api/resume/history`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -97,7 +98,7 @@ export default function History() {
         return;
       }
 
-      const response = await fetch(`/api/resume/${id}/file`, {
+      const response = await fetch(`${API_URL}/api/resume/${id}/file`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -132,7 +133,7 @@ export default function History() {
         return;
       }
 
-      const response = await fetch(`/api/resume/${id}`, {
+      const response = await fetch(`${API_URL}/api/resume/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -168,7 +169,7 @@ export default function History() {
         return;
       }
 
-      const response = await fetch("/api/resume/history", {
+      const response = await fetch(`${API_URL}/api/resume/history`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -204,7 +205,7 @@ export default function History() {
                 <h1 className="text-4xl font-extrabold text-slate-900">Upload history</h1>
                 <p className="mt-3 text-slate-600">Review all resumes you uploaded and the analysis results for each one.</p>
               </div>
-              <div className="flex flex-wrap items-center gap-3">
+              <div className="flex items-center gap-3 whitespace-nowrap">
                 <button
                   type="button"
                   onClick={() => setConfirmClearAll(true)}
