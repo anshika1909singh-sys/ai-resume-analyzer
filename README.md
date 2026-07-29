@@ -15,7 +15,7 @@ An AI-powered full-stack web application that analyzes resumes against job descr
 
 ## 🌐 Live Demo
 
-🔗 [ https://YOUR-VERCEL-URL.vercel.app](https://ai-resume-analyzer-6843hqoi2-me-c686.vercel.app/)
+🔗 (https://ai-resume-analyzer-6843hqoi2-me-c686.vercel.app/)
 
 ---
 
@@ -187,7 +187,7 @@ The application allows users to:
 ## Clone Repository
 
 ```bash
-git clone https://github.com/YOUR-GITHUB-USERNAME/ai-resume-analyzer.git
+git clone https://github.com/anshika1909singh-sys/ai-resume-analyzer.git
 ```
 
 ---
