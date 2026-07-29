@@ -1,87 +1,313 @@
-# Welcome to React Router!
+# 🤖 AI Resume Analyzer
 
-A modern, production-ready template for building full-stack React applications using React Router.
+An AI-powered full-stack web application that analyzes resumes against job descriptions using **Google Gemini AI**. The application provides ATS compatibility scores, content analysis, skills evaluation, and structure assessment while securely storing users' uploaded resumes and analysis history.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+---
 
-## Features
+## 🌐 Live Demo
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+🔗 https://YOUR-VERCEL-URL.vercel.app
 
-## Getting Started
+---
 
-### Installation
+## 📂 GitHub Repository
 
-Install the dependencies:
+🔗 https://github.com/YOUR-GITHUB-USERNAME/ai-resume-analyzer
+
+---
+
+# 📖 Overview
+
+Recruiters often spend only a few seconds reviewing a resume. This project helps job seekers evaluate their resumes before applying by providing AI-powered insights and ATS compatibility analysis.
+
+The application allows users to:
+
+- Create an account
+- Upload PDF resumes
+- Provide a target job title and job description
+- Receive AI-generated resume feedback
+- View previous resume analyses
+- Preview uploaded resumes
+- Manage upload history
+
+---
+
+# ✨ Features
+
+### 🔐 Authentication
+
+- User Signup
+- User Login
+- JWT Authentication
+- Password Encryption using bcrypt
+
+### 📄 Resume Management
+
+- PDF Resume Upload
+- Secure File Storage
+- Resume History
+- PDF Preview
+- Delete Individual Resume
+- Delete Complete History
+
+### 🤖 AI Analysis
+
+- ATS Score
+- Overall Resume Score
+- Skills Analysis
+- Content Quality Analysis
+- Resume Structure Analysis
+- AI Suggestions using Google Gemini
+
+### 💾 Database
+
+- MongoDB Atlas
+- User Management
+- Resume Storage
+- Analysis History
+
+---
+
+# 🛠 Tech Stack
+
+## Frontend
+
+- React Router 8
+- React
+- TypeScript
+- Tailwind CSS
+- Vite
+
+## Backend
+
+- Node.js
+- Express.js
+- JWT Authentication
+- Multer
+- PDF Parser
+- Google Gemini AI
+
+## Database
+
+- MongoDB Atlas
+- Mongoose
+
+## Deployment
+
+- Vercel
+- Render
+
+---
+
+# 🏗 Architecture
+
+```text
+                +----------------------+
+                |      React UI        |
+                +----------+-----------+
+                           |
+                           |
+                    REST API Requests
+                           |
+                           v
+                +----------------------+
+                |    Express Backend   |
+                +----------+-----------+
+                           |
+         +-----------------+----------------+
+         |                                  |
+         |                                  |
+         v                                  v
+ +--------------------+           +-------------------+
+ |   MongoDB Atlas    |           |   Google Gemini   |
+ +--------------------+           +-------------------+
+```
+
+---
+
+# 📷 Screenshots
+
+## Login
+
+![Login](assets/login.png)
+
+---
+
+## Dashboard
+
+![Dashboard](assets/dashboard.png)
+
+---
+
+## Upload Resume
+
+![Upload](assets/upload.png)
+
+---
+
+## AI Analysis
+
+![Analysis](assets/analyze.png)
+
+---
+
+## AI Analysis Action Plan
+![Analysis](assets/analyze1.png)
+![Analysis](assets/analyze2.png)
+
+---
+
+## Upload History
+
+![History](assets/history.png)
+
+---
+
+# ⚙ Installation
+
+## Clone Repository
+
+```bash
+git clone https://github.com/YOUR-GITHUB-USERNAME/ai-resume-analyzer.git
+```
+
+---
+
+## Install Frontend
 
 ```bash
 npm install
 ```
 
-### Development
+---
 
-Start the development server with HMR:
+## Install Backend
+
+```bash
+cd backend
+npm install
+```
+
+---
+
+## Frontend Environment Variables
+
+Create a `.env` file in the project root.
+
+```env
+VITE_API_URL=http://localhost:5000
+```
+
+---
+
+## Backend Environment Variables
+
+Create a `.env` file inside the `backend` folder.
+
+```env
+PORT=5000
+
+MONGODB_URI=YOUR_MONGODB_CONNECTION_STRING
+
+JWT_SECRET=YOUR_SECRET_KEY
+
+GEMINI_API_KEY=YOUR_GEMINI_API_KEY
+```
+
+---
+
+## Run Frontend
 
 ```bash
 npm run dev
 ```
 
-Your application will be available at `http://localhost:5173`.
+---
 
-## Building for Production
-
-Create a production build:
+## Run Backend
 
 ```bash
-npm run build
+cd backend
+npm run dev
 ```
-
-## Deployment
-
-### Docker Deployment
-
-To build and run using Docker:
-
-```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
-```
-
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
 
 ---
 
-Built with ❤️ using React Router.
+# 📁 Folder Structure
+
+```
+AI-Resume-Analyzer/
+
+├── app/
+├── public/
+├── backend/
+│   ├── controllers/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   ├── uploads/
+│   └── server.js
+│
+├── package.json
+├── vite.config.ts
+└── README.md
+```
+
+---
+
+# 🚀 Future Improvements
+
+- Resume comparison
+- Downloadable AI report
+- Multiple resume versions
+- Role-specific AI optimization
+- Dark mode
+- Email verification
+- Password reset
+- Resume templates
+- Interview preparation suggestions
+
+---
+
+# 📚 What I Learned
+
+During this project I gained practical experience with:
+
+- Full Stack Development
+- REST API Design
+- JWT Authentication
+- MongoDB Atlas
+- File Upload using Multer
+- PDF Parsing
+- AI API Integration
+- React Router Framework
+- Environment Variables
+- Production Deployment
+- Git & GitHub
+- Debugging Production Issues
+
+---
+
+# 🤝 Contributing
+
+Contributions, suggestions, and feature requests are welcome.
+
+Feel free to fork this repository and submit a pull request.
+
+---
+
+# 📄 License
+
+This project is licensed under the MIT License.
+
+---
+
+# 👨‍💻 Author
+
+**Anshika Singh**
+
+GitHub:
+https://github.com/YOUR-GITHUB-USERNAME
+
+LinkedIn:
+https://linkedin.com/in/YOUR-LINKEDIN
