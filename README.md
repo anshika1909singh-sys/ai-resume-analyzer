@@ -12,7 +12,7 @@ An AI-powered full-stack web application that analyzes resumes against job descr
 
 ## 📂 GitHub Repository
 
-🔗 [https://github.com/YOUR-GITHUB-USERNAME/ai-resume-analyzer](https://github.com/anshika1909singh-sys/ai-resume-analyzer)
+🔗 [https://github.com/anshika1909singh-sys/ai-resume-analyzer](https://github.com/anshika1909singh-sys/ai-resume-analyzer)
 
 ---
 
