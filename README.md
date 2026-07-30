@@ -21,7 +21,7 @@ An AI-powered full-stack web application that analyzes resumes against job descr
 
 ## 🌐 Live Demo
 
-🔗 (https://ai-resume-analyzer-6843hqoi2-me-c686.vercel.app/)
+🔗 [(https://ai-resume-analyzer-6843hqoi2-me-c686.vercel.app/)](https://ai-resume-analyzer-beta-pearl.vercel.app/)
 
 ---
 
